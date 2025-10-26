@@ -3,6 +3,7 @@ package _c.shop.oauth.dto;
 import _c.shop.user.domain.OauthId;
 import _c.shop.user.domain.User;
 import _c.shop.user.domain.UserRole;
+import _c.shop.user.domain.UserStatus;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
@@ -21,6 +22,10 @@ public record NaverMemberResponse(
                 .oauthId(new OauthId(String.valueOf(response.id), NAVER))
                 .name(response.name)
                 .email(response.email)
+                .point(0D)
+                .isVerified(true)
+                .status(UserStatus.ACTIVE)
+                .lastLoginAt(java.time.LocalDateTime.now())
                 .role(UserRole.USER)
                 .build();
     }

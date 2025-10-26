@@ -3,6 +3,7 @@ package _c.shop.oauth.dto;
 import _c.shop.user.domain.OauthId;
 import _c.shop.user.domain.User;
 import _c.shop.user.domain.UserRole;
+import _c.shop.user.domain.UserStatus;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
@@ -28,6 +29,10 @@ public record KakaoMemberResponse(
                 .oauthId(new OauthId(String.valueOf(id), KAKAO))
                 .name(kakaoAccount.profile.nickname)
                 .email(kakaoAccount.email)
+                .point(0D)
+                .isVerified(true)
+                .status(UserStatus.ACTIVE)
+                .lastLoginAt(LocalDateTime.now())
                 .role(UserRole.USER)
                 .build();
     }

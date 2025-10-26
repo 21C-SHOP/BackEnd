@@ -129,7 +129,7 @@ public class JwtService {
                     .getClaim(EMAIL_CLAIM)
                     .asString());
         } catch (Exception e) {
-            log.error(INVALID_ACCESS_TOKEN);
+            log.error("AccessToken에서 email 추출 중 오류 발생: {}", e.getMessage());
             throw new TokenInvalidException(INVALID_ACCESS_TOKEN);
         }
     }
