@@ -50,6 +50,7 @@ public class SecurityConfig {
                                 .requestMatchers("/", "/css/**", "/images/**", "/js/**", "/favicon.ico").permitAll()
                                 .requestMatchers("/v1/reissue").permitAll() // refreshToken 재발급 가능
                                 .requestMatchers("/v1/oauth/**").permitAll() // OAuth 경로 접근 가능
+                                .requestMatchers("/v1/users/login").permitAll() // 로그인
                                 .requestMatchers("/v1/users/sign-up").permitAll() // 회원가입
                                 .requestMatchers("/v1/users/verifications/**").permitAll() // 이메일 인증
                                 .requestMatchers(("/v1/reissue")).permitAll() // refreshToken 재발급

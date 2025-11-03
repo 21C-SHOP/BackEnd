@@ -43,7 +43,8 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     );
 
     private static final Set<String> NOT_APPLY_JWT_FILTER_PREFIXES = Set.of(
-            "/v1/users/sign-up", "/v1/users/verifications", "/v1/oauth", "/v1/reissue"
+            "/v1/users/sign-up", "/v1/users/verifications", "/v1/oauth", "/v1/reissue",
+            "/v1/users/login"
     );
 
     private final JwtService jwtService;

@@ -25,12 +25,20 @@ public class UserController {
     private final EmailCodeRedisService emailCodeRedisService;
     private final EmailEventPublisher emailEventPublisher;
 
+    @PostMapping("/v1/users/login")
+    public ResponseEntity<ApiResponse<Void>> logIn(
+            HttpServletResponse response,
+            @RequestBody UserRequestDto.LoginDto loginDto
+    ) {
+        userQueryService.login(response, loginDto);
+        return ResponseEntity.ok(ApiResponse.onSuccess(null));
+    }
+
     @PostMapping("/v1/users/sign-up")
     public ResponseEntity<ApiResponse<Void>> signUp(
-            HttpServletResponse response,
             @RequestBody UserRequestDto.SignUpDto signUpDto
     ) {
-        userCommandService.signup(response, signUpDto);
+        userCommandService.signup(signUpDto);
         return ResponseEntity.ok(ApiResponse.onSuccess(null));
     }
 

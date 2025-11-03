@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public interface UserCommandService {
 
-    void signup(HttpServletResponse response, UserRequestDto.SignUpDto signupDto);
+    void signup(UserRequestDto.SignUpDto signupDto);
 
     void createUserInfo(String accessToken, UserRequestDto.InitUserInfoDto userInfoDto);
 

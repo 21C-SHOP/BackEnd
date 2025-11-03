@@ -13,6 +13,15 @@ public class UserRequestDto {
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor
+    public static class LoginDto {
+        private String email;
+        private String password;
+    }
+
+    @Builder
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class SignUpDto {
         private String email;
         private String password;

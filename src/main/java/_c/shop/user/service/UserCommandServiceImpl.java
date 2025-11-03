@@ -7,7 +7,6 @@ import _c.shop.user.converter.UserConverter;
 import _c.shop.user.domain.User;
 import _c.shop.user.dto.UserRequestDto;
 import _c.shop.user.repository.UserRepository;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +23,7 @@ public class UserCommandServiceImpl implements UserCommandService {
 
     @Transactional
     @Override
-    public void signup(HttpServletResponse response, UserRequestDto.SignUpDto signUpDto) {
+    public void signup(UserRequestDto.SignUpDto signUpDto) {
         if (userRepository.existsByEmail(signUpDto.getEmail())) {
             throw new ExceptionHandler(ErrorStatus._USER_ALREADY_EXISTS);
         }
