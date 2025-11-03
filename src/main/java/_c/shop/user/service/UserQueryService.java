@@ -1,6 +1,6 @@
 package _c.shop.user.service;
 
-import _c.shop.jwt.UserPrincipal;
+import _c.shop.global.jwt.UserPrincipal;
 import _c.shop.user.dto.UserResponseDto;
 
 import java.util.Optional;

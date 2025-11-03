@@ -1,11 +1,13 @@
 package _c.shop.user.service;
 
-import _c.shop.apiPayload.code.status.ErrorStatus;
-import _c.shop.apiPayload.exception.ExceptionHandler;
-import _c.shop.jwt.service.JwtService;
+import _c.shop.global.apiPayload.code.status.ErrorStatus;
+import _c.shop.global.apiPayload.exception.ExceptionHandler;
+import _c.shop.global.jwt.service.JwtService;
+import _c.shop.user.converter.UserConverter;
 import _c.shop.user.domain.User;
 import _c.shop.user.dto.UserRequestDto;
 import _c.shop.user.repository.UserRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,17 @@ public class UserCommandServiceImpl implements UserCommandService {
 
     private final JwtService jwtService;
     private final UserRepository userRepository;
+    private final UserConverter userConverter;
+
+    @Transactional
+    @Override
+    public void signup(HttpServletResponse response, UserRequestDto.SignUpDto signUpDto) {
+        if (userRepository.existsByEmail(signUpDto.getEmail())) {
+            throw new ExceptionHandler(ErrorStatus._USER_ALREADY_EXISTS);
+        }
+        User user = userConverter.toUser(signUpDto);
+        userRepository.save(user);
+    }
 
     @Transactional
     @Override

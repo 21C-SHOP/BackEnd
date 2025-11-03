@@ -1,16 +1,19 @@
 package _c.shop.user.controller;
 
-import _c.shop.apiPayload.ApiResponse;
+import _c.shop.global.apiPayload.ApiResponse;
+import _c.shop.global.event.service.EmailEventPublisher;
+import _c.shop.global.redis.EmailCodeRedisService;
 import _c.shop.user.dto.UserRequestDto;
 import _c.shop.user.dto.UserResponseDto;
 import _c.shop.user.service.UserCommandService;
 import _c.shop.user.service.UserQueryService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static _c.shop.jwt.JwtConstants.ACCESS_TOKEN_PREFIX;
-import static _c.shop.jwt.JwtConstants.ACCESS_TOKEN_REPLACEMENT;
+import static _c.shop.global.jwt.JwtConstants.ACCESS_TOKEN_PREFIX;
+import static _c.shop.global.jwt.JwtConstants.ACCESS_TOKEN_REPLACEMENT;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,10 +22,15 @@ public class UserController {
 
     private final UserCommandService userCommandService;
     private final UserQueryService userQueryService;
+    private final EmailCodeRedisService emailCodeRedisService;
+    private final EmailEventPublisher emailEventPublisher;
 
     @PostMapping("/v1/users/sign-up")
-    public ResponseEntity<ApiResponse<Void>> signUp() {
-
+    public ResponseEntity<ApiResponse<Void>> signUp(
+            HttpServletResponse response,
+            @RequestBody UserRequestDto.SignUpDto signUpDto
+    ) {
+        userCommandService.signup(response, signUpDto);
         return ResponseEntity.ok(ApiResponse.onSuccess(null));
     }
 
@@ -53,14 +61,28 @@ public class UserController {
         return ResponseEntity.ok(ApiResponse.onSuccess(null));
     }
 
+    /**
+     * 이메일 코드 발송 API
+     * MQ로 이벤트 발행
+     */
     @PostMapping("/v1/users/verifications")
-    public void sendVerificationEmail() {
-
+    public ResponseEntity<ApiResponse<Void>> sendVerificationEmail(
+            @RequestBody UserRequestDto.SendEmailVerificationDto sendEmailVerificationDto
+    ) {
+        emailEventPublisher.publishEmailVerificationEvent(sendEmailVerificationDto.getEmail());
+        return ResponseEntity.ok(ApiResponse.onSuccess(null));
     }
 
+    /**
+     * 이메일 코드 검증 API
+     * Redis에서 코드 검증
+     */
     @PostMapping("/v1/users/verifications/confirm")
-    public void confirmVerificationCode() {
-
+    public ResponseEntity<ApiResponse<UserResponseDto.VerifyEmailDto>> confirmVerificationCode(
+            @RequestBody UserRequestDto.VerifyEmailDto verifyEmailDto
+    ) {
+        UserResponseDto.VerifyEmailDto dto = emailCodeRedisService.verifyEmailCode(verifyEmailDto.getEmail(), verifyEmailDto.getVerificationCode());
+        return ResponseEntity.ok(ApiResponse.onSuccess(dto));
     }
 
     @GetMapping("/v1/users/mypage")

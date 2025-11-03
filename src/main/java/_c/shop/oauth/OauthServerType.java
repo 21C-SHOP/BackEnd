@@ -4,6 +4,7 @@ import java.util.Locale;
 
 public enum OauthServerType {
 
+    GENERAL,
     KAKAO,
     NAVER,
     GOOGLE;

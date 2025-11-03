@@ -1,7 +1,7 @@
 package _c.shop.oauth.controller;
 
-import _c.shop.apiPayload.ApiResponse;
-import _c.shop.apiPayload.code.status.SuccessStatus;
+import _c.shop.global.apiPayload.ApiResponse;
+import _c.shop.global.apiPayload.code.status.SuccessStatus;
 import _c.shop.oauth.OauthServerType;
 import _c.shop.oauth.service.OauthService;
 import jakarta.servlet.http.HttpServletResponse;

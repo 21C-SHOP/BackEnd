@@ -1,9 +1,9 @@
 package _c.shop.user.service;
 
-import _c.shop.apiPayload.code.status.ErrorStatus;
-import _c.shop.apiPayload.exception.ExceptionHandler;
-import _c.shop.jwt.UserPrincipal;
-import _c.shop.jwt.service.JwtService;
+import _c.shop.global.apiPayload.code.status.ErrorStatus;
+import _c.shop.global.apiPayload.exception.ExceptionHandler;
+import _c.shop.global.jwt.UserPrincipal;
+import _c.shop.global.jwt.service.JwtService;
 import _c.shop.user.converter.UserConverter;
 import _c.shop.user.dto.UserResponseDto;
 import _c.shop.user.repository.UserRepository;

@@ -22,4 +22,12 @@ public class UserResponseDto {
         private String phoneNumber;
         private LocalDate birth;
     }
+
+    @Builder
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class VerifyEmailDto {
+        private Boolean isAvailable;
+    }
 }

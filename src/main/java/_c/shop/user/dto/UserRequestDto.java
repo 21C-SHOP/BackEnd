@@ -13,6 +13,21 @@ public class UserRequestDto {
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor
+    public static class SignUpDto {
+        private String email;
+        private String password;
+        private String name;
+        private String zipCode;
+        private String address1;
+        private String address2;
+        private String phoneNumber;
+        private LocalDate birth;
+    }
+
+    @Builder
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class InitUserInfoDto {
         private String name;
         private String zipCode;
@@ -33,5 +48,22 @@ public class UserRequestDto {
         private String address2;
         private String phoneNumber;
         private LocalDate birth;
+    }
+
+    @Builder
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class SendEmailVerificationDto {
+        private String email;
+    }
+
+    @Builder
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class VerifyEmailDto {
+        private String email;
+        private String verificationCode;
     }
 }

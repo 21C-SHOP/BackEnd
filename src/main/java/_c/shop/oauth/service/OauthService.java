@@ -1,6 +1,6 @@
 package _c.shop.oauth.service;
 
-import _c.shop.jwt.service.JwtService;
+import _c.shop.global.jwt.service.JwtService;
 import _c.shop.oauth.AuthCodeRequestUrlProviderComposite;
 import _c.shop.oauth.OauthServerType;
 import _c.shop.oauth.client.OauthUserClientComposite;
